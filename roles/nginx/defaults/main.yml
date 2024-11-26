@@ -1,0 +1,8 @@
+---
+
+nginx_path: "/srv/nginx"
+nginx_conf_src: "/home/ansible/gitlab-playbook/roles/nginx/files/nginx.conf.j2"
+docker_compose_src: "/home/ansible/gitlab-playbook/roles/nginx/files/docker-compose.yml.j2"
+ssl_private_key_path: "/etc/letsencrypt/live/gitlab-pfw.pro/privkey.pem"
+ssl_certificate_path: "/etc/letsencrypt/live/gitlab-pfw.pro/fullchain.pem"
+letsencrypt_path: "/etc/letsencrypt"

@@ -1,0 +1,5 @@
+---
+
+gitlab_hostname: "gitlab-pfw.pro"
+redis_password: "redis_password"
+docker_network: "gitlab_network"

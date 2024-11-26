@@ -1,0 +1,69 @@
+networks:
+  "{{ docker_network }}":
+    external: true
+
+services:
+  prometheus:
+    image: prom/prometheus
+    networks:
+      - "{{ docker_network }}"
+    user: root
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - "{{ prometheus_path }}/prometheus.yml:/etc/prometheus/prometheus.yml"
+      - "{{ prometheus_path }}/data:/prometheus"
+      - "{{ prometheus_path }}/rules:/etc/prometheus/rules"
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: always
+    networks:
+      - "{{ docker_network }}"
+    ports:
+      - "9100:9100"
+    pid: "host"
+    volumes:
+      - /:/host:ro,rslave
+    command:
+      - "--path.rootfs=/host"
+      - "--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|run|var/lib/docker/.+)($|/)"
+      - "--collector.filesystem.ignored-fs-types=^tmpfs$|^fuse.lxcfs$"
+  
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: redis_exporter
+    networks:
+      - "{{ docker_network }}"
+    restart: always
+    ports:
+      - "9121:9121"
+    environment:
+      - REDIS_ADDR=redis://gitlab:6379
+      - REDIS_PASSWORD="{{ redis_password }}"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    networks:
+      - "{{ docker_network }}"
+    user: "{{ grafana_user }}:{{ grafana_user }}" 
+    ports:
+      - "3000:3000"
+    volumes:
+      - "{{ grafana_path }}/data:/var/lib/grafana"
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    networks:
+      - "{{ docker_network }}"
+    ports:
+      - "9093:9093"
+    volumes: 
+      - "{{ alertmanager_path }}:/config"
+      - "{{ alertmanager_data_path }}:/data"
+    command: --config.file=/config/alertmanager.yml --log.level=debug
+

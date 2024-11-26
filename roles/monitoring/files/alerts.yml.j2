@@ -1,0 +1,63 @@
+groups:
+  - name: system_alerts
+    rules:
+      # High Load
+      - alert: High_CPU_Load
+        expr: node_load1 > 0.7
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ '{{' }} $labels.instance {{ '}}' }} - CPU load is high"
+          description: "CPU load is above 0.7 for more than 2 minutes."
+
+      - alert: Critical_CPU_Load
+        expr: node_load1 > 1.0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ '{{' }} $labels.instance {{ '}}' }} - Critical CPU load"
+          description: "CPU load is critically high."
+
+      # Memory Usage
+      - alert: High_Memory_Usage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.85
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ '{{' }} $labels.instance {{ '}}' }} - High memory usage"
+          description: "Memory usage exceeds 85%."
+
+      # Disk Space
+      - alert: Low_Disk_Space
+        expr: node_filesystem_free_bytes / node_filesystem_size_bytes < 0.15
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ '{{' }} $labels.instance {{ '}}' }} - Low disk space"
+          description: "Less than 15% disk space is available."
+
+  - name: gitlab_alerts
+    rules:
+      # Gitaly connections
+      - alert: High_Gitaly_Connections
+        expr: gitaly_connections_total > 500
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Gitaly connection count"
+          description: "Gitaly has more than 500 connections."
+
+      # GitLab Service Down
+      - alert: GitLab_Service_Down
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ '{{' }} $labels.job {{ '}}' }} is down"
+          description: "Service {{ '{{' }} $labels.job {{ '}}' }} is unreachable for 1 minute."

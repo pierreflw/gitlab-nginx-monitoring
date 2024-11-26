@@ -1,0 +1,51 @@
+---
+
+
+  - name: Download packages requiered
+    apt:
+      name: 
+        - ca-certificates
+        - curl
+        - python3-pip
+        - python3-venv
+      state: present
+  
+  - name: Create directory for the key
+    file:
+      path: "{{ keyrings_path }}"
+      state: directory
+      mode: "0755"
+  
+  - name: Download Docker GPG key
+    get_url:
+      url: https://download.docker.com/linux/debian/gpg
+      dest: "{{ keyrings_path }}/docker.asc"
+      mode: '0644'
+  
+  - name: Add the repository to apt sources
+    apt_repository:
+      repo: >-
+        deb [arch={{ ansible_architecture }} signed-by={{ keyrings_path }}/docker.asc] https://download.docker.com/linux/debian {{ ansible_distribution_release}}  stable
+      state: present
+  
+  - name: Install the Docker packages
+    apt:
+      name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin
+      state: present
+
+  - name: add user to Docker group
+    user:
+      name: "{{ ansible_user }}" 
+      groups: docker
+      append: yes
+
+  - name: Start and enable Docker service
+    systemd:
+      name: docker
+      state: started
+      enabled: yes

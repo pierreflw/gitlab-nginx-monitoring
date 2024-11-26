@@ -1,0 +1,6 @@
+---
+
+ansible_user: "ansible"
+gitlab_path: "/srv/gitlab"
+docker_compose_src: "/home/ansible/gitlab-playbook/roles/gitlab/files/docker-compose.yml.j2"
+keyrings_path: "/etc/apt/keyrings"

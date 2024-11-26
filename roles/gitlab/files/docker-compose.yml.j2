@@ -1,0 +1,55 @@
+networks:
+  "{{ docker_network }}":
+    external: true
+
+services:
+  gitlab:
+    image: zengxs/gitlab:latest
+    container_name: gitlab
+    networks:
+      - "{{ docker_network }}"
+    restart: always
+    hostname: "{{ gitlab_hostname }}"
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://{{ gitlab_hostname }}'
+        
+        prometheus['enable'] = true
+        prometheus_monitoring['enable'] = true
+
+        gitlab_rails['monitoring_whitelist'] = ['127.0.0.0/8', '172.18.0.0/16']
+        gitlab_exporter['enable'] = true
+        gitlab_exporter['listen_address'] = '0.0.0.0'
+
+        redis['enable'] = true
+        redis['bind'] = '0.0.0.0'
+        redis['port'] = 6379
+        redis['password'] = 'redis_password'
+
+        gitlab_rails['redis_password'] = '{{ redis_password }}'
+        gitlab_exporter['redis_url'] = 'redis://:_{{ redis_password }}@127.0.0.1:6379'
+        gitlab_workhorse['redis_password'] = '{{ redis_password }}'
+
+        sidekiq['metrics_enabled'] = true
+        sidekiq['listen_address'] = '0.0.0.0'
+
+        gitaly['configuration'] = {
+        prometheus_listen_addr: '0.0.0.0:9236',
+        }
+
+        gitlab_workhorse['prometheus_listen_addr'] = '0.0.0.0:9229'
+
+        postgres_exporter['listen_address'] = '0.0.0.0:9187'
+
+        puma['exporter_enabled'] = true
+        puma['exporter_address'] = '0.0.0.0'
+
+    ports:
+      - "8080:80"
+      - "2222:22"
+    
+    volumes:
+      - "{{ gitlab_path }}/config:/etc/gitlab"
+      - "{{ gitlab_path }}/logs:/var/log/gitlab"
+      - "{{ gitlab_path }}/data:/var/opt/gitlab"
+    shm_size: "256m"

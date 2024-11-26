@@ -1,0 +1,54 @@
+---
+
+- name: Create Prometheus, Grafana, alertmanager directories
+  file:
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    path: "{{ item }}"
+  loop: 
+    - "{{ prometheus_path }}"
+    - "{{ grafana_path }}"
+    - "{{ alertmanager_path }}"
+   
+- name: Create  Grafana rules directory with grafana user and group
+  file:
+    state: directory
+    owner: "{{ grafana_user }}"
+    group: "{{ grafana_user }}"
+    path: "{{ grafana_path }}/data"
+
+- name: Create  alertmanager data directory with grafana user and group
+  file:
+    state: directory
+    owner: root
+    group: root
+    path: "{{ prometheus_path }}/rules"
+
+- name: Create alerts.yml from template
+  template:
+    src: "{{ prom_rules_src }}"
+    dest: "{{ prom_rules_path }}/alerts.yml"
+
+- name: Create prometheus.yml from template
+  template:
+    src: "{{ prometheus_config_src }}"
+    dest: "{{ prometheus_path }}/prometheus.yml"
+
+- name: Create docker-compose file from template
+  template:
+    src: "{{ docker_compose_src }}"
+    dest: "{{ monitoring_path }}/docker-compose.yml"
+
+- name: Create alertmanager.yml from template
+  template:
+    src: "{{ alertmanager_config_src }}"
+    dest: "{{ alertmanager_path }}/alertmanager.yml"
+
+- name: Create and start Prometheus and Grafana
+  command: docker compose up -d 
+  args:
+    chdir: "{{ monitoring_path }}"
+
+
+  

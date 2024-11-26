@@ -1,0 +1,22 @@
+---
+
+
+- name: Create volumes directory
+  file:
+    path: "{{ gitlab_path }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    state: directory
+
+- name: Create docker-compose file
+  template:
+    src: "{{ docker_compose_src }}"
+    dest: "{{ gitlab_path }}/docker-compose.yml"
+
+- name: Create docker network
+  command: docker network create {{ docker_network }}
+
+- name: Create and start Gitlab
+  command: docker compose up -d
+  args:
+    chdir: "{{ gitlab_path }}" 
