@@ -1,5 +1,6 @@
 ---
 
+
 monitoring_path: "/srv/monitoring"
 prometheus_path: "{{ monitoring_path }}/prometheus"
 prom_rules_path: "{{ prometheus_path }}/rules"
