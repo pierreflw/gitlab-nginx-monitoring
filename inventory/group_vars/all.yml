@@ -1,5 +1,4 @@
 ---
 
-
 gitlab_hostname: "gitlab-pfw.pro"
 docker_network: "gitlab_network"
