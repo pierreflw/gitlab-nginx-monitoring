@@ -13,7 +13,6 @@ alertmanager_config_src: "/home/ansible/gitlab-nginx-monitoring/roles/monitoring
 prom_rules_src: "/home/ansible/gitlab-nginx-monitoring/roles/monitoring/templates/alerts.yml.j2"
 
 grafana_user: "472"
-receiver_auth_email: "pfwpro@gmail.com"
 
 
 
