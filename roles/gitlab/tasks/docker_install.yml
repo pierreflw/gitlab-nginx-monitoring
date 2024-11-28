@@ -1,6 +1,9 @@
 ---
 
 
+  - name: Load sensitive variables
+    include_vars: /home/ansible/gitlab-nginx-monitoring/inventory/group_vars/vault.yml
+
   - name: Download packages requiered
     apt:
       name: 

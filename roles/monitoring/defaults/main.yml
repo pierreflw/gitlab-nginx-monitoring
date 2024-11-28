@@ -7,15 +7,13 @@ alertmanager_path: "{{ monitoring_path }}/alertmanager"
 alertmanager_data_path: "{{ monitoring_path }}/alertmanager_data"
 grafana_path: "{{ monitoring_path }}/grafana"
 
-docker_compose_src: "/home/ansible/gitlab-playbook/roles/monitoring/files/docker-compose.yml.j2"
-prometheus_config_src: "/home/ansible/gitlab-playbook/roles/monitoring/files/prometheus.yml.j2"
-alertmanager_config_src: "/home/ansible/gitlab-playbook/roles/monitoring/files/alertmanager.yml.j2"
-prom_rules_src: "/home/ansible/gitlab-playbook/roles/monitoring/files/alerts.yml.j2"
+docker_compose_src: "/home/ansible/gitlab-nginx-monitoring/roles/monitoring/templates/docker-compose.yml.j2"
+prometheus_config_src: "/home/ansible/gitlab-nginx-monitoring/roles/monitoring/templates/prometheus.yml.j2"
+alertmanager_config_src: "/home/ansible/gitlab-nginx-monitoring/roles/monitoring/templates/alertmanager.yml.j2"
+prom_rules_src: "/home/ansible/gitlab-nginx-monitoring/roles/monitoring/templates/alerts.yml.j2"
 
 grafana_user: "472"
-prometheus_token: "yMRk1WNFkXYZXugpphb2"
 receiver_auth_email: "pfwpro@gmail.com"
-receiver_auth_password: "rqtm dzvu unkz phdu"
-slack_api_url: "https://hooks.slack.com/services/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"
+
 
 
