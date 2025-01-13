@@ -42,7 +42,7 @@ services:
       - "9121:9121"
     environment:
       - REDIS_ADDR=redis://gitlab:6379
-      - REDIS_PASSWORD="{{ redis_password }}"
+      - REDIS_PASSWORD={{ redis_password }}
 
   grafana:
     image: grafana/grafana

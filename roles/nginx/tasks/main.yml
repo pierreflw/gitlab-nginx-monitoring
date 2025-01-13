@@ -26,7 +26,7 @@
     - python3-certbot-nginx
 
 - name: Generate SSL certificate with certbot
-  command: certbot certonly --standalone -d gitlab-pfw.pro -d www.gitlab-pfw.pro --agree-tos --email pg.flauw@gmail.com --non-interactive -vv
+  command: sudo certbot certonly --standalone -d gitlab-pfw.pro -d www.gitlab-pfw.pro --agree-tos --email pg.flauw@gmail.com --non-interactive -vv
   args:
     creates: "{{ ssl_certificate_path }}"
 
