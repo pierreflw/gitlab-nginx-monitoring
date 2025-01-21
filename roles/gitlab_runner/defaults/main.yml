@@ -1,0 +1,4 @@
+---
+
+gitlab_runner_path: "/srv/gitlab-runner"
+gitlab_runner_docker_image: "alpine:latest"

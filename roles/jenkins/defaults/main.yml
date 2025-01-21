@@ -1,5 +1,0 @@
----
-
-jenkins_path: "/srv/jenkins"
-jenkins_data_path: "{{ jenkins_path }}/data/jenkins_data"
-docker_compose_src: "/home/ansible/gitlab-nginx-monitoring/roles/jenkins/templates/docker-compose.yml.j2"

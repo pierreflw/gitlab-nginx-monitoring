@@ -1,0 +1,28 @@
+--- 
+
+- name: Create directory for GitLab Runner
+  file:
+    path: "{{ gitlab_runner_path }}"
+    state: directory
+    mode: "0755"
+
+- name: Deploy Docker Compose file for GitLab Runner
+  template:
+    src: "/home/ansible/gitlab-nginx-monitoring/roles/gitlab_runner/templates/docker-compose.yml.j2"
+    dest: "{{ gitlab_runner_path }}/docker-compose.yml"
+
+- name: Pull and start GitLab Runner with Docker Compose
+  command: docker compose up -d
+  args:
+    chdir: "{{ gitlab_runner_path }}"
+
+- name: Register GitLab Runner
+  command: >
+    docker exec gitlab-runner gitlab-runner register
+    --non-interactive
+    --url "https://{{ gitlab_hostname }}"
+    --registration-token "{{ gitlab_runner_token }}"
+    --executor docker
+    --docker-image "{{ gitlab_runner_docker_image }}"
+  args:
+    creates: "{{ gitlab_runner_path }}/config/config.toml"

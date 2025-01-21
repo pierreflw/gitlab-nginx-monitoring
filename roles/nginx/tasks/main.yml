@@ -30,11 +30,6 @@
   args:
     creates: "{{ gitlab_ssl_certificate_path }}"
 
-- name: Generate Jenkins SSL certificate with certbot
-  command: sudo certbot certonly --standalone -d jenkins-pfw.duckdns.org --agree-tos --email pg.flauw@gmail.com --non-interactive -vv
-  args:
-    creates: "{{ jenkins_ssl_certificate_path }}"
-
 - name: Ensure certbot renews certificates automatically
   cron:
     name: "Renew Let's Encrypt certificates"
@@ -47,5 +42,3 @@
   command: docker compose up -d
   args:
     chdir: "{{ nginx_path }}"
-
-

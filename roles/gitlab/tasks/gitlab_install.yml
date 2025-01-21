@@ -19,4 +19,4 @@
 - name: Create and start Gitlab
   command: docker compose up -d
   args:
-    chdir: "{{ gitlab_path }}" 
+    chdir: "{{ gitlab_path }}"
