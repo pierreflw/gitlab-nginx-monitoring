@@ -3,10 +3,10 @@
 Ce projet est une solution automatisée basée sur Ansible pour déployer une instance GitLab sécurisée, avec Nginx en reverse proxy et Let's Encrypt pour le chiffrement HTTPS. L’infrastructure est orchestrée avec Docker Compose, et un système de monitoring est intégré avec Prometheus, Grafana et Alertmanager.
 
 ## 📌 Fonctionnalités principales
-Déploiement automatisé de GitLab via Ansible  
-Sécurisation avec Nginx et Let's Encrypt  
-Monitoring avancé avec Prometheus, Grafana et Alertmanager  
-GitLab Runner installé et configuré pour exécuter les pipelines CI/CD
+* Déploiement automatisé de GitLab via Ansible  
+* Sécurisation avec Nginx et Let's Encrypt  
+* Monitoring avancé avec Prometheus, Grafana et Alertmanager  
+* GitLab Runner installé et configuré pour exécuter les pipelines CI/CD
 
 
 ## ⚡ CI/CD
