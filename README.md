@@ -1,2 +1,19 @@
 # gitlab-nginx-monitoring
-gitlab-nginx-monitoring Ansible-based solution to deploy GitLab with Nginx as a reverse proxy and Prometheus monitoring. Features automated GitLab setup, HTTPS with Let's Encrypt, and monitoring via Prometheus and Alertmanager. Requires Docker, Docker Compose, and a Linux server with a domain name.
+
+Solution automatisée basée sur Ansible pour déployer une instance GitLab sécurisée avec Nginx en tant que reverse proxy et Let's Encrypt pour le chiffrement HTTPS.
+
+L’infrastructure est orchestrée avec Docker Compose et inclut un pipeline CI/CD permettant de tester, construire et déployer des applications Dockerisées.
+
+Un système de monitoring et d’alerting est intégré avec Prometheus, Grafana et Alertmanager pour assurer la supervision des services.
+
+✅ Technologies utilisées :
+
+GitLab (gestion du code et CI/CD)
+Nginx (reverse proxy, HTTPS)
+Let's Encrypt (certificats SSL)
+Ansible (automatisation du déploiement)
+Docker & Docker Compose (orchestration des services)
+Prometheus, Grafana & Alertmanager (monitoring et alerting)
+🔧 Prérequis :
+
+Serveur Linux avec un nom de domaine
