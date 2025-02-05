@@ -16,7 +16,7 @@ Ce repository n'inclut pas le fichier .gitlab-ci.yml, mais il installe et config
 
 Pour illustrer cette infrastructure, j’ai utilisé une application Python, dans laquelle j’ai intégré un pipeline définissant les étapes d’intégration, de build et de déploiement.
 
-🔗 Lien vers le repository CI/CD
+🔗 Lien vers le repository CI/CD : https://github.com/pierreflw/python-gitlab-ci
 
 
 ## ✅ Technologies utilisées
