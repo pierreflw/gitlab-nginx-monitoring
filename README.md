@@ -9,15 +9,10 @@ Un système de monitoring et d’alerting est intégré avec Prometheus, Grafana
 ✅ Technologies utilisées :
 
 GitLab (gestion du code et CI/CD)
-
 Nginx (reverse proxy, HTTPS)
-
 Let's Encrypt (certificats SSL)
-
 Ansible (automatisation du déploiement)
-
 Docker & Docker Compose (orchestration des services)
-
 Prometheus, Grafana & Alertmanager (monitoring et alerting)
 
 🔧 Prérequis :
