@@ -14,6 +14,7 @@ Let's Encrypt (certificats SSL)
 Ansible (automatisation du déploiement)
 Docker & Docker Compose (orchestration des services)
 Prometheus, Grafana & Alertmanager (monitoring et alerting)
+
 🔧 Prérequis :
 
 Serveur Linux avec un nom de domaine
