@@ -8,8 +8,8 @@ Un système de monitoring et d’alerting est intégré avec Prometheus, Grafana
 
 GitLab 
 Ansible 
-Docker & Docker Compose 
-Nginx   
+Docker & Docker Compose  
+Nginx  
 Let's Encrypt     
 Prometheus  
 Grafana  
