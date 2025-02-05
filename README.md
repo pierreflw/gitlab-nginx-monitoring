@@ -18,40 +18,38 @@ Pour illustrer cette infrastructure, j’ai utilisé une application Python, dan
 🔗 Lien vers le repository CI/CD
 
 
-Ce repository n'inclut pas ce fichier, mais installe et configure un GitLab Runner pour exécuter les pipelines définis dans le projet.
+## ✅ Technologies utilisées
 
-✅ Technologies utilisées
+* GitLab  
+* Ansible  
+* Docker & Docker Compose  
+* Nginx  
+* Let's Encrypt  
+* Prometheus  
+* Grafana  
+* Alertmanager  
 
-GitLab  
-Ansible  
-Docker & Docker Compose  
-Nginx  
-Let's Encrypt  
-Prometheus  
-Grafana  
-Alertmanager  
+## 🔧 Prérequis
 
-🔧 Prérequis
+* Un serveur Linux  
+* Un nom de domaine pointant vers le serveur   
+* Accès SSH avec un utilisateur sudo   
+* Ansible installé  
 
-Un serveur Linux  
-Un nom de domaine pointant vers le serveur   
-Accès SSH avec un utilisateur sudo   
-Ansible installé  
+## 🚀 Installation & Utilisation
 
-🚀 Installation & Utilisation
+### 1️⃣ Cloner le repository
 
-1️⃣ Cloner le repository
-
-git clone https://github.com/tonrepo/gitlab-nginx-monitoring.git  
+git clone https://github.com/pierreflw/gitlab-nginx-monitoring.git  
 cd gitlab-nginx-monitoring
 
-2️⃣ Modifier l’inventaire Ansible
-Adapter inventory.yml avec son serveur.
+### 2️⃣ Modifier l’inventaire Ansible
+L'inventaire est défini dans inventory/hosts.yml. Vous devez l’adapter à votre serveur en modifiant l’hôte et les paramètres Ansible.
 
-3️⃣ Lancer le déploiement
+### 3️⃣ Lancer le déploiement
 
 ansible-playbook -i inventory playbook.yml
 
-4️⃣ Accéder à GitLab
+### 4️⃣ Accéder à GitLab
 Une fois l’installation terminée, rendez-vous sur :
 ➡️ https://domaine.com (ou IP)
