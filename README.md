@@ -6,8 +6,8 @@ Un système de monitoring et d’alerting est intégré avec Prometheus, Grafana
 
 ✅ Technologies utilisées :
 
-GitLab 
-Ansible 
+GitLab  
+Ansible  
 Docker & Docker Compose  
 Nginx  
 Let's Encrypt     
