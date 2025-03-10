@@ -24,5 +24,17 @@
     --registration-token "{{ gitlab_runner_token }}"
     --executor docker
     --docker-image "{{ gitlab_runner_docker_image }}"
+    --tag-list "privileged"  # Tags définis dans config.toml
+    --docker-volumes "/certs/client:/certs/client"
+    --docker-volumes "/cache:/cache"
+    --docker-privileged  # Activer le mode privilégié
   args:
     creates: "{{ gitlab_runner_path }}/config/config.toml"
+
+- name: Generate config.toml for GitLab Runner
+  template:
+    src: config.toml.j2
+    dest: "{{ gitlab_runner_path }}/config/config.toml"
+    owner: root
+    group: root
+    mode: '0644'
