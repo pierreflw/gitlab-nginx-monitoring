@@ -1,7 +1,0 @@
----
-
-ansible_user: "ansible"
-gitlab_path: "/srv/gitlab"
-docker_compose_src: "/home/ansible/gitlab-nginx-monitoring/roles/gitlab/templates/docker-compose.yml.j2"
-keyrings_path: "/etc/apt/keyrings"
-vault_file_path: "/home/ansible/gitlab-nginx-monitoring/inventory/group_vars/vault.yml"

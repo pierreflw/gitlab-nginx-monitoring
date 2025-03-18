@@ -1,0 +1,11 @@
+---
+
+
+redis_password: redis_password
+prometheus_token: "yMRk1WNFkXYZXugpphb2"
+receiver_auth_email: "pfwpro@gmail.com"
+receiver_auth_password: "rqtm dzvu unkz phdu"
+slack_api_url: "https://hooks.slack.com/services/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"
+gitlab_ssl_private_key_path: "/etc/letsencrypt/live/gitlab-pfw.duckdns.org/privkey.pem"
+gitlab_ssl_certificate_path: "/etc/letsencrypt/live/gitlab-pfw.duckdns.org/fullchain.pem"
+gitlab_runner_token: "i1f1bPRTqZMGPPyaHE-8"

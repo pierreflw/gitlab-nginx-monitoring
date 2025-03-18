@@ -15,3 +15,4 @@ services:
     volumes:
       - "{{ nginx_path }}/nginx.conf:/etc/nginx/nginx.conf"
       - "{{ letsencrypt_path }}:{{ letsencrypt_path }}:ro"
+      - "/var/www/certbot:/var/www/certbot"

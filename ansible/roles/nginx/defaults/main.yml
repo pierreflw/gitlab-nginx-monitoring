@@ -1,0 +1,7 @@
+---
+
+
+nginx_path: "/srv/nginx"
+nginx_conf_src: "/home/ansible/gitlab-nginx-monitoring/ansible/roles/nginx/templates/nginx.conf.j2"
+docker_compose_src: "/home/ansible/gitlab-nginx-monitoring/ansible/roles/nginx/templates/docker-compose.yml.j2"
+letsencrypt_path: "/etc/letsencrypt"

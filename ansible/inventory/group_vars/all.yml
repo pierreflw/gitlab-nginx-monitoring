@@ -1,0 +1,4 @@
+---
+
+gitlab_hostname: "gitlab-pfw.duckdns.org"
+docker_network: "gitlab_network"

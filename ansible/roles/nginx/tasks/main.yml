@@ -1,0 +1,79 @@
+- name: Create nginx directory
+  file:
+    path: "{{ nginx_path }}"
+    state: directory
+    mode: "0755"
+
+- name: Create certbot webroot directory
+  file:
+    path: /var/www/certbot
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "0755"
+
+- name: Install certbot and nginx plugin
+  apt:
+    name:
+      - certbot
+      - python3-certbot-nginx
+    state: present
+
+- name: Check if SSL certificate exists
+  stat:
+    path: "{{ gitlab_ssl_certificate_path }}"
+  register: gitlab_ssl_certificate_stat
+
+- name: Create initial nginx conf file (without SSL)
+  template:
+    src: "{{ nginx_conf_src }}"
+    dest: "{{ nginx_path }}/nginx.conf"
+  when: not gitlab_ssl_certificate_stat.stat.exists
+
+- name: Create nginx docker-compose file
+  template:
+    src: "{{ docker_compose_src }}"
+    dest: "{{ nginx_path }}/docker-compose.yml"
+
+- name: Start nginx container (initial setup)
+  command: docker compose up -d
+  args:
+    chdir: "{{ nginx_path }}"
+  when: not gitlab_ssl_certificate_stat.stat.exists
+
+- name: Generate GitLab SSL certificate with certbot
+  command: >
+    certbot certonly --webroot
+    -w /var/www/certbot
+    -d {{ gitlab_hostname }}
+    --agree-tos
+    --email pg.flauw@gmail.com
+    --non-interactive
+  args:
+    creates: "{{ gitlab_ssl_certificate_path }}"
+
+- name: Check again if SSL certificate exists after generation
+  stat:
+    path: "{{ gitlab_ssl_certificate_path }}"
+  register: gitlab_ssl_certificate_stat
+
+- name: Create nginx conf file (with SSL) if certificate exists
+  template:
+    src: "{{ nginx_conf_src }}"
+    dest: "{{ nginx_path }}/nginx.conf"
+  when: gitlab_ssl_certificate_stat.stat.exists
+
+- name: Restart nginx after SSL certificate generation
+  command: docker compose up -d --force-recreate
+  args:
+    chdir: "{{ nginx_path }}"
+  when: gitlab_ssl_certificate_stat.stat.exists
+
+- name: Ensure certbot renews certificates automatically
+  cron:
+    name: "Renew Let's Encrypt certificates"
+    minute: "0"
+    hour: "3"
+    job: "/usr/bin/certbot renew --quiet"
+    state: present
+

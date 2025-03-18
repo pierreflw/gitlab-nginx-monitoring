@@ -1,0 +1,5 @@
+---
+
+gitlab_runner_path: "/srv/gitlab-runner"
+gitlab_runner_src: "/home/ansible/gitlab-nginx-monitoring/ansible/roles/gitlab_runner/templates/docker-compose.yml.j2"
+gitlab_runner_docker_image: "alpine:latest"

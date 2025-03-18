@@ -1,0 +1,39 @@
+events {
+}
+
+http {
+  server {
+    listen 80;
+    server_name {{ gitlab_hostname }};
+
+    location /.well-known/acme-challenge/ {
+      root /var/www/certbot;
+    }
+
+    location / {
+      {% if gitlab_ssl_certificate_stat.stat.exists %}
+      return 301 https://$host$request_uri;
+      {% else %}
+      return 503;
+      {% endif %}
+    }
+  }
+
+  {% if gitlab_ssl_certificate_stat.stat.exists %}
+  server {
+    listen 443 ssl;
+    server_name {{ gitlab_hostname }};
+
+    ssl_certificate {{ gitlab_ssl_certificate_path }};
+    ssl_certificate_key {{ gitlab_ssl_private_key_path }};
+
+    location / {
+      proxy_pass http://gitlab:80;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+    }
+  }
+  {% endif %}
+}
