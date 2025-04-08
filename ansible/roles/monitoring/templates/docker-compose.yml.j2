@@ -31,6 +31,19 @@ services:
       - "--path.rootfs=/host"
       - "--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|run|var/lib/docker/.+)($|/)"
       - "--collector.filesystem.ignored-fs-types=^tmpfs$|^fuse.lxcfs$"
+      
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    container_name: cadvisor
+    networks:
+      - "{{ docker_network }}"
+    ports:
+      - "8081:8080"
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
   
   redis-exporter:
     image: oliver006/redis_exporter:latest
