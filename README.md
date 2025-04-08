@@ -2,6 +2,14 @@
 
 Ce projet est une solution automatisée basée sur Ansible pour déployer une instance GitLab sécurisée, avec Nginx en reverse proxy et Let's Encrypt pour le chiffrement HTTPS. L’infrastructure est orchestrée avec Docker Compose, et un système de monitoring est intégré avec Prometheus, Grafana et Alertmanager.
 
+### ⚡ Pour aller plus loin (CI/CD)
+Les pipelines CI/CD sont gérés directement dans un projet GitLab dédié.
+Ce repository n'inclut pas le fichier .gitlab-ci.yml, mais il installe et configure un GitLab Runner pour exécuter les pipelines définis dans le projet.
+
+Pour illustrer cette infrastructure, j’ai utilisé une application Python, dans laquelle j’ai intégré un pipeline définissant les étapes d’intégration, de build et de déploiement.
+
+🔗 Lien vers le repository CI/CD : https://github.com/pierreflw/python-gitlab-ci
+
 ## 📌 Fonctionnalités principales
 * Déploiement automatisé de GitLab via Ansible  
 * Sécurisation avec Nginx et Let's Encrypt  
@@ -47,12 +55,3 @@ ansible-playbook -i inventory playbook.yml
 ### 4️⃣ Accéder à GitLab
 Une fois l’installation terminée, rendez-vous sur :
 ➡️ https://domaine.com (ou IP)
-
-## ⚡ Pour aller plus loin (CI/CD)
-
-Les pipelines CI/CD sont gérés directement dans un projet GitLab dédié.
-Ce repository n'inclut pas le fichier .gitlab-ci.yml, mais il installe et configure un GitLab Runner pour exécuter les pipelines définis dans le projet.
-
-Pour illustrer cette infrastructure, j’ai utilisé une application Python, dans laquelle j’ai intégré un pipeline définissant les étapes d’intégration, de build et de déploiement.
-
-🔗 Lien vers le repository CI/CD : https://github.com/pierreflw/python-gitlab-ci
